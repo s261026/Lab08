@@ -7,6 +7,7 @@ package it.polito.tdp.extflightdelays;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.extflightdelays.model.Adiacenza;
 import it.polito.tdp.extflightdelays.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,7 +36,18 @@ public class FXMLController {
 
     @FXML
     void doAnalizzaAeroporti(ActionEvent event) {
-    	//TODO
+    	txtResult.clear();
+    	int x;
+    	try {
+    		x = Integer.parseInt(distanzaMinima.getText());
+    	} catch(NumberFormatException e) {
+    		txtResult.setText("errore");
+    		return;
+    	}
+    	this.model.creaGrafo(x);
+    	for (Adiacenza a: this.model.getAdiacenze(this.model.getIdMap(), x))
+    		txtResult.appendText(a.toString());
+    	
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
